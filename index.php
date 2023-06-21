@@ -3,6 +3,7 @@
 require "db.php";
 require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/category.php';
+require_once __DIR__ . '/models/food.php';
 
 // SOMETHING TO FIX: MAMP/PHP keeps giving fatal errors on page regarding class creation, product creation and file loading. Already tried various solutions found on online forums.
 
@@ -50,7 +51,7 @@ require_once __DIR__ . '/models/category.php';
 
                     <!-- Product Image -->
                     <div>
-                        <img src=".<?= $product->getProductImg() ?>" alt="<?= str_replace(' ', '_', $product->getProductName()) ?>-img" class="w-full h-[200px] object-cover object-center border">
+                        <img src=".<?= $product->getProductImg() ?>" alt="<?= str_replace(' ', '_', $product->getProductName()) ?>-img" class="w-full max-h-[270px] object-cover object-center border">
                     </div>
 
                     <!-- Product Name -->
@@ -60,13 +61,21 @@ require_once __DIR__ . '/models/category.php';
 
                     <!-- Product Details -->
                     <div>
-                        <p>🚚 Free Shipping</p>
+
+                        <!--Food Product Details -->
+                        <?php if ($product instanceof Food) { ?>
+                            <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() ?></span>
+                        <?php } ?>
+                        
+                        <!-- Shipping & Price -->
+                        <p class="my-2">🚚 Free Shipping</p>
                         <span class="font-bold text-xl text-green-600">$<?= $product->getProductPrice() ?> </span>
                         <del class="text-gray-500"> $<?= $product->getProductPrice() * 2 ?></del>
                         <span class="text-gray-500"> (50% off)</span>
+                        
                     </div>
 
-                    <!-- Button Shop & Price -->
+                    <!-- Button Shop -->
                     <div class="flex justify-center my-2">
                         <button class="rounded-full hover:border-2 px-3 py-1.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold">SHOP NOW</button>
                     </div>

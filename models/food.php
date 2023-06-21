@@ -1,39 +1,50 @@
-<?php 
-
-class Food extends Product {
-
+<?php
+class Food extends Product
+{
     // PROPERTIES
-    private $category;
-    private $description;
+    private string $brand;
+    private string $weight;
+    private string $agerange;
 
     // CONSTRUCTOR
-    public function __construct($category = null , $description = 'lorem ipsum')
+    public function __construct($name, $price, $img, Category $category, $brand, $weight, $agerange)
     {
-        parent::__construct($name, $price);
-        $this->category = $category;
-        $this->description = $description;
+        parent::__construct($name, $price, $img, $category);
+        $this->brand = $brand;
+        $this->weight = $weight;
+        $this->agerange = $agerange;
     }
 
     // GETTER
-    public function getCategory()
+    public function getProductBrand()
     {
-        return $this->category;
+        return $this->brand;
     }
 
-    public function getDescrip()
+    public function getProductWeight()
     {
-        return $this->description;
+        return $this->weight;
+    }
+
+    public function getProductAge()
+    {
+        return $this->agerange;
     }
 
     // SETTER
-    public function setCategory($category)
+    public function setProductBrand($brand)
     {
-        $this->category = $category;
+        $this->brand = $brand;
     }
 
-    public function setDescrip($description)
+    public function setProductWeight($weight)
     {
-        $this->description = $description;
+        $this->weight = $weight;
     }
 
+    public function setProductAge($agerange)
+    {
+        $this->agerange = $agerange;
+    }
 }
+?>
