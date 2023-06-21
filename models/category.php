@@ -5,12 +5,14 @@ class Category {
     // PROPERTIES
     private string $name;
     private string $description;
+    private string $icon;
 
     // CONSTRUCTOR
-    public function __construct($name , $description)
+    public function __construct($name , $description, $icon)
     {
         $this->name = $name;
         $this->description = $description;
+        $this->icon = $icon;
     }
 
     // GETTER
@@ -24,6 +26,11 @@ class Category {
         return $this->description;
     }
 
+    public function getCategoryIcon()
+    {
+        return $this->icon;
+    }
+
     // SETTER
     public function setCategoryName($name)
     {
@@ -33,6 +40,11 @@ class Category {
     public function setCategoryDescrip($description)
     {
         $this->description = $description;
+    }
+
+    public function setCategoryIcon($icon)
+    {
+        $this->icon = $icon;
     }
 
 }

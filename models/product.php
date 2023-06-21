@@ -5,14 +5,16 @@ class Product {
 
     // PROPERTIES
     protected string $name;
+    protected string $img;
     protected int $price;
-    protected object $category;
+    public object $category;
 
     // CONSTRUCTOR
-    public function __construct($name, $price, Category $category)
+    public function __construct($name, $price, $img, Category $category)
     {
         $this->name = $name;
         $this->price = $price;
+        $this->img = $img;
         $this->category = $category;
 
         foreach ($this->category as $category) {
@@ -34,6 +36,11 @@ class Product {
         return $this->price;
     }
 
+    public function getProductImg()
+    {
+        return $this->img;
+    }
+
     // SETTER
     public function setProductName($name)
     {
@@ -43,6 +50,11 @@ class Product {
     public function setProductPrice($price)
     {
         $this->price = $price;
+    }
+
+    public function setProductImg($img)
+    {
+        $this->img = $img;
     }
 
 }
