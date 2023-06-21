@@ -4,6 +4,7 @@ require "db.php";
 require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/category.php';
 require_once __DIR__ . '/models/food.php';
+require_once __DIR__ . '/models/toy.php';
 
 // SOMETHING TO FIX: MAMP/PHP keeps giving fatal errors on page regarding class creation, product creation and file loading. Already tried various solutions found on online forums.
 
@@ -26,7 +27,7 @@ require_once __DIR__ . '/models/food.php';
 
     <!-- Page title -->
     <header class="py-7">
-        <h1 class="text-center font-bold text-5xl text-red-600">🐶 SHOP</h1>
+        <h1 class="text-center font-bold text-5xl text-[#F1641D]">🐶 SHOP</h1>
     </header>
 
     <!-- Main Contents -->
@@ -35,7 +36,7 @@ require_once __DIR__ . '/models/food.php';
 
             <!-- Product Cards -->
             <?php foreach ($products as $product) { ?>
-                <div class="border py-4 px-3 w-[calc(100%/5)] text-sm border-neutral-800 relative flex flex-col gap-2">
+                <div class="border py-4 px-3 w-[calc(100%/5-1rem)] text-sm border-neutral-800 relative flex flex-col gap-2">
 
                     <!-- Category Info -->
                     <div class="absolute top-2 left-1 z-20 bg-slate-200 px-2 py-1 rounded">
@@ -51,28 +52,33 @@ require_once __DIR__ . '/models/food.php';
 
                     <!-- Product Image -->
                     <div>
-                        <img src=".<?= $product->getProductImg() ?>" alt="<?= str_replace(' ', '_', $product->getProductName()) ?>-img" class="w-full max-h-[270px] object-cover object-center border">
+                        <img src=".<?= $product->getProductImg() ?>" alt="<?= str_replace(' ', '_', $product->getProductName()) ?>-img" class="w-full h-[270px] object-cover object-center border">
                     </div>
 
                     <!-- Product Name -->
                     <div class="flex justify-center">
-                        <h3 class="font-bold text-3xl"><?= $product->getProductName() ?></h3>
+                        <h3 class="font-bold text-3xl text-[#5C737C]"><?= $product->getProductName() ?></h3>
                     </div>
 
                     <!-- Product Details -->
                     <div>
 
-                        <!--Food Product Details -->
+                        <!-- Food Product Details -->
                         <?php if ($product instanceof Food) { ?>
                             <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() ?></span>
                         <?php } ?>
-                        
+
+                        <!-- Toy Product Details -->
+                        <?php if ($product instanceof Toy) { ?>
+                            <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() ?></span>
+                        <?php } ?>
+
                         <!-- Shipping & Price -->
                         <p class="my-2">🚚 Free Shipping</p>
                         <span class="font-bold text-xl text-green-600">$<?= $product->getProductPrice() ?> </span>
                         <del class="text-gray-500"> $<?= $product->getProductPrice() * 2 ?></del>
                         <span class="text-gray-500"> (50% off)</span>
-                        
+
                     </div>
 
                     <!-- Button Shop -->
