@@ -4,6 +4,7 @@
 class Product {
 
     // PROPERTIES
+    // protected int $i;
     protected string $name;
     protected string $img;
     protected int $price;
@@ -26,6 +27,7 @@ class Product {
     }
 
     // GETTER
+
     public function getProductName()
     {
         return $this->name;
@@ -42,6 +44,7 @@ class Product {
     }
 
     // SETTER
+
     public function setProductName($name)
     {
         $this->name = $name;

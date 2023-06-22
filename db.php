@@ -5,13 +5,15 @@ require __DIR__ . '/models/category.php';
 require __DIR__ . '/models/food.php';
 require __DIR__ . '/models/toy.php';
 require __DIR__ . '/models/kennel.php';
+require __DIR__ . '/models/cart.php';
 
 // DATA
+$cart = new Cart([], 0);
 $products = [
     new Kennel('Wooden House', 260, '/img/dogbigkennel.webp', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png'), '', 'Medium', 'Black'),
     new Kennel('Calming Cat Bed', 36, '/img/catcomfybed.webp', new Category('cat', 'We Love our Kittens', '/img/cat.png'), 'Trixie', '', 'White/Grey'),
     new Kennel('Comfy Cat Bed', 72, '/img/cathouse.avif', new Category('cat', 'We Love our Kittens', '/img/cat.png'), 'Royal Canin', 'Regular', 'Eucalyptus'),
-    new Kennel('Sleepdog Pillow Bed', 75, '/img/dogkennel.avif', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png'), '', '', 'Gray'),
+    new Kennel('Sleepdog Pillow', 75, '/img/dogkennel.avif', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png'), '', '', 'Gray'),
     new Product('Ceraminc Bowl', 15, '/img/bowl.webp', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png')),
     new Toy('Squeaky Bone', 16, '/img/bonesToy.avif', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png'), 'Royal Canin', 'Puppy & Adult'),
     new Toy('Rabbit for Cat', 22, '/img/catrabbit.avif', new Category('cat', 'We Love our Kittens', '/img/cat.png'), 'Paw Love', 'Adult & Puppy'),
@@ -42,6 +44,7 @@ $products[3]->setProductBrand('Royal Canin');
 $products[3]->setProductColor('Gray');
 $products[3]->setProductSize('XL Large');
 
+// var_dump($cart)
 // var_dump($products);
 
 ?>
