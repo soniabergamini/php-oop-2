@@ -5,6 +5,7 @@ require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/category.php';
 require_once __DIR__ . '/models/food.php';
 require_once __DIR__ . '/models/toy.php';
+require_once __DIR__ . '/models/kennel.php'
 
 // SOMETHING TO FIX: MAMP/PHP keeps giving fatal errors on page regarding class creation, product creation and file loading. Already tried various solutions found on online forums.
 
@@ -66,11 +67,18 @@ require_once __DIR__ . '/models/toy.php';
                         <!-- Food Product Details -->
                         <?php if ($product instanceof Food) { ?>
                             <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() ?></span>
-                        <?php } ?>
 
                         <!-- Toy Product Details -->
-                        <?php if ($product instanceof Toy) { ?>
+                        <?php } elseif ($product instanceof Toy) { ?>
                             <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() ?></span>
+
+                        <!-- Kennel Product Details -->
+                        <?php } elseif ($product instanceof Kennel) { ?>
+                            <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductSize() ?></span>
+                        
+                        <!-- Generic Product Details -->
+                        <?php } else { ?>
+                            <span class="text-base"> <?= $product->category->getCategoryDescrip() ?></span>
                         <?php } ?>
 
                         <!-- Shipping & Price -->
