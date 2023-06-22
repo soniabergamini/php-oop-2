@@ -28,16 +28,16 @@ require_once __DIR__ . '/models/kennel.php'
 
     <!-- Page title -->
     <header class="py-7">
-        <h1 class="text-center font-bold text-5xl text-[#F1641D]">🐶 SHOP</h1>
+        <h1 class="text-center font-bold text-5xl text-[#F1641D]">🐾 SHOP 🐾</h1>
     </header>
 
     <!-- Main Contents -->
     <main>
-        <section class="flex gap-4 flex-wrap px-7">
+        <section class="flex justify-center gap-4 flex-wrap px-2 md:px-5 pt-3 pb-7">
 
             <!-- Product Cards -->
             <?php foreach ($products as $product) { ?>
-                <div class="border py-4 px-3 w-[calc(100%/5-1rem)] text-sm border-neutral-800 relative flex flex-col gap-2">
+                <div class="shadow-2xl shadow-neutral-300 rounded py-4 px-3 w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/5-1rem)] text-sm relative flex flex-col gap-2">
 
                     <!-- Category Info -->
                     <div class="absolute top-2 left-1 z-20 bg-slate-200 px-2 py-1 rounded">
@@ -92,7 +92,7 @@ require_once __DIR__ . '/models/kennel.php'
 
                     </div>
 
-                    <!-- Button Shop -->
+                    <!-- Shop Button -->
                     <div class="flex justify-center my-2">
                         <button class="rounded-full hover:border-2 px-3 py-1.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold">SHOP NOW</button>
                     </div>
