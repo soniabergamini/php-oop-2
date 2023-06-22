@@ -47,6 +47,9 @@ require_once __DIR__ . '/models/kennel.php'
                             </figure>
                             <figcaption>
                                 <small><?= ucfirst(strtolower($product->category->getCategoryName())) ?></small>
+                                <?php if ($product instanceof Food || $product instanceof Toy || $product instanceof Kennel) { ?>
+                                    <small> | <?= get_class($product) ?></small>
+                                <?php } ?>
                             </figcaption>
                         </div>
                     </div>
@@ -68,15 +71,15 @@ require_once __DIR__ . '/models/kennel.php'
                         <?php if ($product instanceof Food) { ?>
                             <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() ?></span>
 
-                        <!-- Toy Product Details -->
+                            <!-- Toy Product Details -->
                         <?php } elseif ($product instanceof Toy) { ?>
                             <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() ?></span>
 
-                        <!-- Kennel Product Details -->
+                            <!-- Kennel Product Details -->
                         <?php } elseif ($product instanceof Kennel) { ?>
-                            <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductSize() ?></span>
-                        
-                        <!-- Generic Product Details -->
+                            <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductSize() . ' &#x2022; ' . $product->getProductColor() ?></span>
+
+                            <!-- Generic Product Details -->
                         <?php } else { ?>
                             <span class="text-base"> <?= $product->category->getCategoryDescrip() ?></span>
                         <?php } ?>
