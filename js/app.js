@@ -25,18 +25,8 @@ createApp({
         // Remove Product from Array Cart
         removeFromCart(position) {
             // this.cart.splice(position, 1),
-            console.log(position),
             this.postApiData({ deleteItem: position })
         },
-        // Update total price
-        getTotal(){
-            this.total = 0,
-            this.cart.forEach(element => {
-                this.total += Number(element.price)
-            });
-            return this.total
-        },
-        // Return Cart Items Number
         getItemsNum() {
             if (this.cart.length > 0) {
                 return this.cart.length
@@ -80,5 +70,15 @@ createApp({
     mounted() {
         console.log("Hello from VueJS 👋"),
         this.getApiData()
+    },
+    computed: {
+        // Update total price
+        getTotal() {
+            this.total = 0,
+            this.cart.forEach(element => {
+                this.total += Number(element.price)
+            });
+            return this.total;
+        }
     }
 }).mount('#app')

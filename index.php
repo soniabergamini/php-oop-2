@@ -132,7 +132,7 @@ require_once __DIR__ . '/models/kennel.php';
                         </div>
 
                         <!-- Total -->
-                        <h3 class="text-xl mt-2 font-bold">TOTAL: ${{ getTotal() }}</h3>
+                        <h3 class="text-xl mt-2 font-bold">TOTAL: ${{ getTotal }}</h3>
 
                         <!-- One Click Checkout -->
                         <button @click="oneClickCheckout()" class="rounded-full border-2 border-[#F1641D] px-3 py-1.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:bg-white hover:text-[#F1641D] text-white font-bold mt-3 justify-self-end"><i class="fa-brands fa-cc-paypal fa-xl"></i> SHOP NOW</button>
