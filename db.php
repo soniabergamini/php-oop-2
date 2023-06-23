@@ -39,14 +39,14 @@ $products[7]->setProductBrand('Royal Canin');
 $products[8]->setProductBrand('Royal Canin');
 $products[9]->setProductBrand('Virtus');
 $products[10]->setProductBrand('Trixie');
-// $products[11]->setProductBrand('Virtus');
-$products[11]->setProductBrand(null);
+$products[11]->setProductBrand('Virtus');
+$products[11]->setProductBrand(''); // Used to test the display of the exception on the web page
 $products[12]->setProductBrand('ForDogs');
 $products[13]->setProductBrand('ForDogs');
 $products[13]->setProductBrand('Arcaplanet');
 
 // var_dump($cart)
 // var_dump($products);
-echo '<pre>', var_dump($products), '</pre>';
+// echo '<pre>', var_dump($products), '</pre>';
 
 ?>

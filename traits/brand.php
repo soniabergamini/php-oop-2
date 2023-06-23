@@ -5,7 +5,7 @@ trait Brand {
     // GETTER
     public function getProductBrand()
     {
-        if($this->brand == null){
+        if($this->brand == ''){
             throw new Exception("The Brand is null. ");
         }
         return ucfirst(strtolower($this->brand));
