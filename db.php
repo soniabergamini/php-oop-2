@@ -5,10 +5,8 @@ require __DIR__ . '/models/category.php';
 require __DIR__ . '/models/food.php';
 require __DIR__ . '/models/toy.php';
 require __DIR__ . '/models/kennel.php';
-require __DIR__ . '/models/cart.php';
 
 // DATA
-$cart = new Cart([], 0);
 $products = [
     new Kennel('Wooden House', 260, '/img/dogbigkennel.webp', new Category('dog', 'Special Products for Special Dogs', '/img/dog.png'), 'Medium', 'Black'),
     new Kennel('Calming Cat Bed', 36, '/img/catcomfybed.webp', new Category('cat', 'We Love our Kittens', '/img/cat.png'), 'Small', 'White/Grey'),

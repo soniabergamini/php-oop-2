@@ -6,7 +6,6 @@ require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/food.php';
 require_once __DIR__ . '/models/toy.php';
 require_once __DIR__ . '/models/kennel.php';
-require_once __DIR__ . '/models/cart.php';
 
 ?>
 
@@ -25,6 +24,8 @@ require_once __DIR__ . '/models/cart.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <!-- Script Vue Js -->
     <script src="./js/vue.3.2.47.js"></script>
+    <!-- Script Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -90,8 +91,8 @@ require_once __DIR__ . '/models/cart.php';
                         <h3 v-show="cart.length" class="text-lg">🛍️ YOUR PRODUCT LIST:</h3>
 
                         <!-- Item Details -->
-                        <div v-show="cart.length > 0" v-for="item in cart" class="flex items-center my-2 gap-2 bg-white rounded relative">
-                            <i @click="removeFromCart(i, item.price)" class="fa-solid fa-circle-xmark fa-lg text-red-600 absolute top-4 right-1 cursor-pointer"></i>
+                        <div v-show="cart.length > 0" v-for="(item, i) in cart" class="flex items-center my-2 gap-2 bg-white rounded relative">
+                            <i @click="removeFromCart(i)" class="fa-solid fa-circle-xmark fa-lg text-red-600 absolute top-4 right-1 cursor-pointer"></i>
                             <div>
                                 <img :src="item.img" alt="img" class="h-[120px] w-[120px] object-cover object-center border">
                             </div>
@@ -179,13 +180,13 @@ require_once __DIR__ . '/models/cart.php';
                             <!-- Food Product Details -->
                             <?php if ($product instanceof Food) { ?>
                                 <span class="text-base">
-                                    <?php try{
-                                        echo $product->getProductBrand(); 
+                                    <?php try {
+                                        echo $product->getProductBrand();
                                     } catch (Exception $e) {
                                         echo 'Exception: ' . $e->getMessage();
                                         echo 'Unspecified Brand';
                                     };
-                                    echo ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() 
+                                    echo ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight()
                                     ?>
                                 </span>
 
