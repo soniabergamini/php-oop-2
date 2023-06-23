@@ -1,8 +1,8 @@
 <?php
 // Include
 require "db.php";
-require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/category.php';
+require_once __DIR__ . '/models/product.php';
 require_once __DIR__ . '/models/food.php';
 require_once __DIR__ . '/models/toy.php';
 require_once __DIR__ . '/models/kennel.php';
@@ -28,6 +28,7 @@ require_once __DIR__ . '/models/cart.php';
 </head>
 
 <body>
+
     <!-- Vue JS App -->
     <div id="app">
 
@@ -200,7 +201,7 @@ require_once __DIR__ . '/models/cart.php';
 
                         </div>
 
-                        <!-- Shop Button -->
+                        <!-- Add To Cart Button -->
                         <div class="flex justify-center my-2">
                             <button @click="addToCart({name: '<?= $product->getProductName() ?>', price: <?= $product->getProductPrice() ?>, img: '.<?= $product->getProductImg() ?>'})" class="rounded-full border-2 border-[#F1641D] px-3 py-1.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D]">ADD TO CART</button>
                         </div>

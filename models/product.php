@@ -1,7 +1,9 @@
 <?php
-
+require __DIR__ . '/../traits/brand.php';
 // CLASS
 class Product {
+
+    use Brand;
 
     // PROPERTIES
     // protected int $i;
@@ -23,11 +25,9 @@ class Product {
                 die("ERROR: Invalid Category Data");
             }
         }
-
     }
 
     // GETTER
-
     public function getProductName()
     {
         return $this->name;
@@ -44,7 +44,6 @@ class Product {
     }
 
     // SETTER
-
     public function setProductName($name)
     {
         $this->name = $name;
@@ -59,7 +58,6 @@ class Product {
     {
         $this->img = $img;
     }
-
 }
 
 ?>

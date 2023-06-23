@@ -2,25 +2,18 @@
 class Kennel extends Product
 {
     // PROPERTIES
-    private string $brand;
     private string $size;
     private string $color;
 
     // CONSTRUCTOR
-    public function __construct($name, $price, $img, Category $category, $brand, $size, $color)
+    public function __construct($name, $price, $img, Category $category, $size, $color)
     {
         parent::__construct($name, $price, $img, $category);
-        $this->brand = $brand;
         $this->size = $size;
-        $this->size = $color;
+        $this->color = $color;
     }
 
     // GETTER
-    public function getProductBrand()
-    {
-        return $this->brand;
-    }
-
     public function getProductSize()
     {
         return $this->size;
@@ -32,11 +25,6 @@ class Kennel extends Product
     }
 
     // SETTER
-    public function setProductBrand($brand)
-    {
-        $this->brand = $brand;
-    }
-
     public function setProductSize($size)
     {
         $this->size = $size;
