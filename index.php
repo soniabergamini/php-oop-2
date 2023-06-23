@@ -178,7 +178,16 @@ require_once __DIR__ . '/models/cart.php';
 
                             <!-- Food Product Details -->
                             <?php if ($product instanceof Food) { ?>
-                                <span class="text-base"><?= $product->getProductBrand() . ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() ?></span>
+                                <span class="text-base">
+                                    <?php try{
+                                        echo $product->getProductBrand(); 
+                                    } catch (Exception $e) {
+                                        echo 'Exception: ' . $e->getMessage();
+                                        echo 'Unspecified Brand';
+                                    };
+                                    echo ' &#x2022; ' . $product->getProductAge() . ' &#x2022; ' . $product->getProductWeight() 
+                                    ?>
+                                </span>
 
                                 <!-- Toy Product Details -->
                             <?php } elseif ($product instanceof Toy) { ?>
