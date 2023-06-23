@@ -22,7 +22,7 @@ if (!empty($_POST)) {
     } else if (isset($_POST['emptyCart'])) {
 
         // Empty Cart on purchase
-        $cartData = [];
+        $cartData = $_POST['emptyCart'];
 
     }
     file_put_contents("./cartdata.json", json_encode($cartData));

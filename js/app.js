@@ -54,7 +54,7 @@ createApp({
         oneClickCheckout() {
             // this.cart = [],
             this.showCart = false,
-            this.postApiData('emptyCart'),
+            this.postApiData({emptyCart: []}),
             this.loading = true,
             this.purchase = true,
             this.getApiData()
