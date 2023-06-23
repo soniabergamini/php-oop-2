@@ -14,6 +14,22 @@ createApp({
             API: "../cart.php"
         }
     },
+    mounted() {
+        console.log("Hello from VueJS 👋"),
+        this.getApiData()
+    },
+    computed: {
+        // Update total price
+        getTotal() {
+            if (this.cart.length > 0) {
+                this.total = 0,
+                this.cart.forEach(element => {
+                    this.total += Number(element.price)
+                });
+                return this.total;
+            }
+        }
+    },
     methods: {
         // Add Product Info to Array Cart
         addToCart(item) {
@@ -36,10 +52,12 @@ createApp({
         },
         // Confirm purchase and set empy Cart
         oneClickCheckout() {
-            this.cart = [],
+            // this.cart = [],
             this.showCart = false,
+            this.postApiData('emptyCart'),
             this.loading = true,
             this.purchase = true,
+            this.getApiData()
             setTimeout(() => {
                 this.loading = false,
                 this.confirmation = true
@@ -65,20 +83,6 @@ createApp({
             }).catch((error) => {
                 console.log("Sending Cart Data Error: " + error);
             });
-        }
-    },
-    mounted() {
-        console.log("Hello from VueJS 👋"),
-        this.getApiData()
-    },
-    computed: {
-        // Update total price
-        getTotal() {
-            this.total = 0,
-            this.cart.forEach(element => {
-                this.total += Number(element.price)
-            });
-            return this.total;
         }
     }
 }).mount('#app')

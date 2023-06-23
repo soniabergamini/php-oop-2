@@ -19,11 +19,16 @@ if (!empty($_POST)) {
         $itemIndex = $_POST['deleteItem'];
         array_splice($cartData, $itemIndex, 1);
 
+    } else if (isset($_POST['emptyCart'])) {
+
+        // Empty Cart on purchase
+        $cartData = [];
+
     }
     file_put_contents("./cartdata.json", json_encode($cartData));
 } else {
 
-    // Before Unmount Empty Cart
+    //Empty Cart before unmount
     $cartData = [];
     file_put_contents("./cartdata.json", json_encode($cartData));
 }
