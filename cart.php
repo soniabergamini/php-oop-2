@@ -7,19 +7,7 @@ $cart = file_get_contents("./cartdata.json");
 
 // Data Processing
 $cartData = json_decode($cart, true);
-
-// Debug Cart:
-// if($cartData == []) {
-//     $cartData = [
-//         [
-//             'id' => 1,
-//             'cartItems' => []
-//         ]
-//     ];
-// }
-
-file_put_contents("./cartdata.json", json_encode($cartData));
-
+$i = null; 
 if (!empty($_POST)) {
     if (isset($_POST['newItem'])) {
 
@@ -38,6 +26,7 @@ if (!empty($_POST)) {
                 'cartItems' => [$_POST['newItem']],
             ];
             $cartData[] = $data;
+            $i = sizeof($cartData) - 1;
         }
 
     } else if (isset($_POST['deleteItem'])) {
@@ -64,8 +53,8 @@ if (!empty($_POST)) {
         }
     }
     file_put_contents("./cartdata.json", json_encode($cartData));
+    $cart = json_encode($cartData[$i]['cartItems']); // Send to VueJS User Session Cart only
 }
-$cart = json_encode($cartData);
 
 echo $cart;
 ?>

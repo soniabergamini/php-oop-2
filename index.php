@@ -42,10 +42,6 @@ echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
     <!-- Vue JS App -->
     <div id="app">
 
-        <?php // Send SessionId from PHP to JS 
-        ?>
-        <template>{{getSessionCart(<?= $_SESSION['id'] ?>)}}</template>
-
         <!-- Page title -->
         <header class="py-7">
             <h1 class="text-center font-bold text-5xl text-[#F1641D]">🐾 SHOP 🐾</h1>

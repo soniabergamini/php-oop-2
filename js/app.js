@@ -6,7 +6,6 @@ createApp({
             productFilter: 'All',
             showCart: false,
             cartNotif: false,
-            cart: [],
             cartIndex: undefined,
             sessionCart: [],
             total: 0,
@@ -22,8 +21,7 @@ createApp({
     },
     // Get Cart Data 
     mounted() {
-        console.log("Hello from VueJS 👋"),
-        this.getApiData()
+        console.log("Hello from VueJS 👋")
     },
     computed: {
         // Update total price
@@ -38,20 +36,11 @@ createApp({
         }
     },
     methods: {
-        // Return the User Session Cart Array
-        getSessionCart(sessionId) {
-            this.cart.forEach(element => {
-                if (element.id === sessionId) {
-                    this.cartIndex = this.cart.indexOf(element);
-                    this.sessionCart = this.cart[this.cartIndex].cartItems;
-                    console.log("Session Cart: ", this.sessionCart, this.sessionCart.constructor.name)
-                }
-            })
-        },
         // Add Product Info to Array Cart
         addToCart(item) {
             this.showCart = true,
-            this.postApiData({ newItem: item })
+            this.postApiData({ newItem: item }),
+            this.scrollToTop()
         },
         // Remove Product from Array Cart
         removeFromCart(position) {
@@ -72,7 +61,6 @@ createApp({
             this.showCart = false,
             this.loading = true,
             this.purchase = true,
-            this.getApiData()
             setTimeout(() => {
                 this.loading = false,
                 this.confirmation = true
@@ -82,23 +70,18 @@ createApp({
                 this.purchase = false
             }, 1 * 20000);
         },
-        // Return Cart from API
-        getApiData() {
-            axios.get(this.API).then((response) => {
-                this.cart = response.data;
-                console.log("Response for GET Cart Data (All carts): ", this.cart)
-            }).catch((error) => {
-                console.error("Get Cart Data Error: " + error);
-            });
-        },
-        // Send Cart Data to API
+        // Post Cart Data to API and return User Session Cart Items
         postApiData(data) {
             axios.post(this.API, data, { headers: { 'Content-Type': 'multipart/form-data' } }).then((response) => {
-                this.cart = response.data;
-                console.log("Response for POST Cart Data (All carts): ", response.data)
+                this.sessionCart = response.data;
+                console.log("Response for POST API Data (User Session Cart->Items): ", response.data)
             }).catch((error) => {
                 console.error("Sending Cart Data Error: " + error);
             });
+        },
+        // Scroll page on top to view cart
+        scrollToTop() {
+            window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         },
         // API call to clean user session cart and destroy session
         leaving() {
