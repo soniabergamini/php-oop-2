@@ -7,6 +7,15 @@ require_once __DIR__ . '/models/food.php';
 require_once __DIR__ . '/models/toy.php';
 require_once __DIR__ . '/models/kennel.php';
 
+// Session
+session_start();
+$_SESSION['id'] = rand(1, 5000);
+
+// Session Debug
+// $_SESSION['id'] = 1;
+$printID = json_encode($_SESSION['id']);
+echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
+// echo '<pre>', print_r("Session ID: " . $_SESSION['id'], true), '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +41,10 @@ require_once __DIR__ . '/models/kennel.php';
 
     <!-- Vue JS App -->
     <div id="app">
+
+        <?php // Send SessionId from PHP to JS 
+        ?>
+        <template>{{getSessionCart(<?= $_SESSION['id'] ?>)}}</template>
 
         <!-- Page title -->
         <header class="py-7">
@@ -83,38 +96,39 @@ require_once __DIR__ . '/models/kennel.php';
 
             <!-- Cart & Checkout Section -->
             <section v-show="showCart" class="border px-2 md:px-5 py-7 bg-[#f2d0cb]">
-
                 <!-- Cart Items -->
                 <div class="mx-auto max-w-[1000px] flex gap-3 flex-wrap">
-                    <h3 v-show="!cart.length" class="text-xl text-center w-full">🛒 YOUR CART IS EMPTY</h3>
+                    <h3 v-show="!sessionCart.length" class="text-xl text-center w-full">🛒 YOUR CART IS EMPTY</h3>
                     <div class="grow">
-                        <h3 v-show="cart.length" class="text-lg">🛍️ YOUR PRODUCT LIST:</h3>
+                        <h3 v-show="sessionCart.length" class="text-lg">🛍️ YOUR PRODUCT LIST:</h3>
 
                         <!-- Item Details -->
-                        <div v-show="cart.length > 0" v-for="(item, i) in cart" class="flex items-center my-2 gap-2 bg-white rounded relative">
-                            <i @click="removeFromCart(i)" class="fa-solid fa-circle-xmark fa-lg text-red-600 absolute top-4 right-1 cursor-pointer"></i>
-                            <div>
-                                <img :src="item.img" alt="img" class="h-[120px] w-[120px] object-cover object-center border">
+                        <template v-for="(item, i) in sessionCart">
+                            <div v-show="sessionCart.length" class="flex items-center my-2 gap-2 bg-white rounded relative">
+                                <i @click="removeFromCart(i)" class="fa-solid fa-circle-xmark fa-lg text-red-600 absolute top-4 right-1 cursor-pointer"></i>
+                                <div>
+                                    <img :src="item.img" alt="img" class="h-[120px] w-[120px] object-cover object-center border">
+                                </div>
+                                <div>
+                                    <p>
+                                        <strong>PRODUCT: </strong>
+                                        <span>{{ item.name }}</span>
+                                    </p>
+                                    <p>
+                                        <strong>PRICE: </strong>
+                                        <span>${{item.price}}</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <p>
-                                    <strong>PRODUCT: </strong>
-                                    <span>{{item.name}}</span>
-                                </p>
-                                <p>
-                                    <strong>PRICE: </strong>
-                                    <span>${{item.price}}</span>
-                                </p>
-                            </div>
-                        </div>
+                        </template>
 
                     </div>
 
                     <!-- Cart Summary, Total & Checkout -->
-                    <div class="bg-white rounded p-3 flex flex-col min-w-[30%] border" v-show="cart.length > 0">
+                    <div class="bg-white rounded p-3 flex flex-col min-w-[30%] border" v-show="sessionCart.length > 0">
 
                         <!-- Cart Summary -->
-                        <template v-for="item in cart">
+                        <template v-for="item in sessionCart">
                             <div class="flex justify-between border-b-2 my-2">
                                 <span>{{item.name}}</span>
                                 <strong>${{item.price}}</strong>
