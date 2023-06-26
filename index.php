@@ -1,7 +1,7 @@
 <?php
 // Session
 session_start();
-// var_dump($_SESSION);
+var_dump($_SESSION);
 
 // Session
 if (!isset($_SESSION['id'])) {
@@ -86,10 +86,10 @@ require_once __DIR__ . '/models/kennel.php';
         <!-- Login / Signup PopUp -->
         <section v-show="showLogin" class="text-center border rounded absolute w-[55%] top-[50%] left-[50%] p-5 translate-x-[-50%] translate-y-[-50%] z-50 bg-white">
             <h3 class="font-bold text-2xl text-[#5C737C]">LOGIN OR SIGNUP</h3>
-            <p class="my-3 text-sm">Insert your data to <strong>login</strong> or <strong>create new account</strong>. If this is your first time, a new user will be created for you!</p>
 
             <!-- Login Form  -->
-            <form action="login.php" method="POST" class="flex flex-col items-center justify-start">
+            <form v-show="formLogin" action="login.php" method="POST" class="flex flex-col items-center justify-start">
+                <p class="my-3 text-sm">Insert your data to <strong>login</strong> or <strong class="hover:underline text-[#F1641D] hover:text-[#E37C71] cursor-pointer" @click="formLogin = false">create new account HERE</strong>.</p>
                 <div class="flex justify-center flex-wrap gap-3 w-full my-3">
                     <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
                     <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
@@ -98,13 +98,14 @@ require_once __DIR__ . '/models/kennel.php';
             </form>
 
             <!-- Signup Form  -->
-            <!-- <form action="signup.php" method="POST" class="flex flex-col items-center justify-start">
-                    <div class="flex justify-center flex-wrap gap-3 w-full my-3">
-                        <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
-                        <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
-                    </div>
-                    <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> SIGNUP</button>
-                </form> -->
+            <form v-show="!formLogin" action="signup.php" method="POST" class="flex flex-col items-center justify-start">
+                <p class="my-3 text-sm">Insert your data to <strong>create new account</strong> for free. Already have an account? <strong class="hover:underline text-[#F1641D] hover:text-[#E37C71] cursor-pointer" @click="formLogin = true">Click HERE to login</strong>.</p>
+                <div class="flex justify-center flex-wrap gap-3 w-full my-3">
+                    <input type="email" placeholder="signup_email" name="signup_email" id="signup_email" class="border w-[35%] rounded px-2 py-1" required>
+                    <input type="password" placeholder="signup_password" name="signup_password" id="signup_password" class="border w-[35%] rounded px-2 py-1" required>
+                </div>
+                <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> SIGNUP </button>
+            </form>
 
         </section>
 
@@ -279,7 +280,7 @@ require_once __DIR__ . '/models/kennel.php';
     <script src="./js/app.js"></script>
     <script>
         app.$data.sessionId = <?= $_SESSION['id'] ?>;
-        localStorage.setItem('sessionid', "<?= $_SESSION['id'] ?>");
+        localStorage.setItem('session_id', "<?= $_SESSION['id'] ?>");
     </script>";
     </script>
 

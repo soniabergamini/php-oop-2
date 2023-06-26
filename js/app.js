@@ -5,6 +5,7 @@ const app = createApp({
             productFilter: 'All',
             showCart: false,
             showLogin: false,
+            formLogin: true,
             cartNotif: false,
             cartIndex: undefined,
             sessionCart: [],
