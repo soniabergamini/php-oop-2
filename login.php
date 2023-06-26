@@ -1,9 +1,5 @@
 <?php
-
-if (!isset($_SESSION['id'])) {
-    $_SESSION['id'] = rand(1, 5000);
-    session_start();
-}
+session_start();
 
 // DEFINE
 define("DB_SERVERNAME", "127.0.0.1");

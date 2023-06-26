@@ -1,19 +1,14 @@
 <?php
-// Include
-require "db.php";
-require_once __DIR__ . '/models/category.php';
-require_once __DIR__ . '/models/product.php';
-require_once __DIR__ . '/models/food.php';
-require_once __DIR__ . '/models/toy.php';
-require_once __DIR__ . '/models/kennel.php';
+// Session
+session_start();
+// var_dump($_SESSION);
 
 // Session
-if(!isset($_SESSION['id'])) {
+if (!isset($_SESSION['id'])) {
     $_SESSION['id'] = rand(1, 5000);
     var_dump($_SESSION['id']);
-    session_start();
 }
-if(!isset($_SESSION['login'])) {
+if (!isset($_SESSION['login'])) {
     $_SESSION['login'] = false;
 }
 
@@ -22,6 +17,15 @@ if(!isset($_SESSION['login'])) {
 // $printID = json_encode($_SESSION['id']);
 // echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
 // echo '<pre>', print_r("Session ID: " . $_SESSION['id'], true), '</pre>';
+
+// Include
+require "db.php";
+require_once __DIR__ . '/models/category.php';
+require_once __DIR__ . '/models/product.php';
+require_once __DIR__ . '/models/food.php';
+require_once __DIR__ . '/models/toy.php';
+require_once __DIR__ . '/models/kennel.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +64,7 @@ if(!isset($_SESSION['login'])) {
         <section>
 
             <!-- Login / Signup -->
-                <button v-show="<?php echo !$_SESSION['login'] ?>" @click="showLogin = !showLogin" class="fixed right-5 top-20 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded" :class="showLogin === true ? 'animate-pulse' : null"><i class="fa-solid fa-user fa-xl"></i></button>
+            <button v-show="<?php echo !$_SESSION['login'] ?>" @click="showLogin = !showLogin" class="fixed right-5 top-20 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded" :class="showLogin === true ? 'animate-pulse' : null"><i class="fa-solid fa-user fa-xl"></i></button>
 
             <!-- Cart -->
             <button @click="showCart = !showCart" class="fixed right-5 top-40 z-40 hover:bg-[#ef8f5f] border-2 border-[#F1641D] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded">
@@ -80,21 +84,21 @@ if(!isset($_SESSION['login'])) {
         </section>
 
         <!-- Login / Signup PopUp -->
-            <section v-show="showLogin" class="text-center border rounded absolute w-[55%] top-[50%] left-[50%] p-5 translate-x-[-50%] translate-y-[-50%] z-50 bg-white">
-                <h3 class="font-bold text-2xl text-[#5C737C]">LOGIN OR SIGNUP</h3>
-                <p class="my-3 text-sm">Insert your data to <strong>login</strong> or <strong>create new account</strong>. If this is your first time, a new user will be created for you!</p>
+        <section v-show="showLogin" class="text-center border rounded absolute w-[55%] top-[50%] left-[50%] p-5 translate-x-[-50%] translate-y-[-50%] z-50 bg-white">
+            <h3 class="font-bold text-2xl text-[#5C737C]">LOGIN OR SIGNUP</h3>
+            <p class="my-3 text-sm">Insert your data to <strong>login</strong> or <strong>create new account</strong>. If this is your first time, a new user will be created for you!</p>
 
-                <!-- Login Form  -->
-                <form action="login.php" method="POST" class="flex flex-col items-center justify-start">
-                    <div class="flex justify-center flex-wrap gap-3 w-full my-3">
-                        <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
-                        <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
-                    </div>
-                    <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> LOGIN</button>
-                </form>
+            <!-- Login Form  -->
+            <form action="login.php" method="POST" class="flex flex-col items-center justify-start">
+                <div class="flex justify-center flex-wrap gap-3 w-full my-3">
+                    <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
+                    <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
+                </div>
+                <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> LOGIN</button>
+            </form>
 
-                <!-- Signup Form  -->
-                <!-- <form action="signup.php" method="POST" class="flex flex-col items-center justify-start">
+            <!-- Signup Form  -->
+            <!-- <form action="signup.php" method="POST" class="flex flex-col items-center justify-start">
                     <div class="flex justify-center flex-wrap gap-3 w-full my-3">
                         <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
                         <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
@@ -102,7 +106,7 @@ if(!isset($_SESSION['login'])) {
                     <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> SIGNUP</button>
                 </form> -->
 
-            </section>
+        </section>
 
         <!-- Main Contents -->
         <main>
@@ -273,6 +277,11 @@ if(!isset($_SESSION['login'])) {
 
     <!-- Script App JS -->
     <script src="./js/app.js"></script>
+    <script>
+        app.$data.sessionId = <?= $_SESSION['id'] ?>;
+        localStorage.setItem('sessionid', "<?= $_SESSION['id'] ?>");
+    </script>";
+    </script>
 
 </body>
 

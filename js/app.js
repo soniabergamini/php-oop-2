@@ -1,6 +1,5 @@
 const { createApp } = Vue
-
-createApp({
+const app = createApp({
     data() {
         return {
             productFilter: 'All',
@@ -9,6 +8,7 @@ createApp({
             cartNotif: false,
             cartIndex: undefined,
             sessionCart: [],
+            sessionId: null,
             total: 0,
             purchase: false,
             loading: false,
@@ -17,9 +17,9 @@ createApp({
         }
     },
     // Call Leaving Method to destroy session when user close browser window
-    created() {
-        window.addEventListener("beforeunload", this.leaving)
-    },
+    // created() {
+    //     window.addEventListener("beforeunload", this.leaving)
+    // },
     watch: {
         // Stop page scrolling if Login Form is visible
         showLogin() {
@@ -34,7 +34,11 @@ createApp({
     },
     // Get Cart Data 
     mounted() {
-        console.log("Hello from VueJS 👋")
+        console.log("Hello from VueJS 👋"),
+        setTimeout(() => {
+            console.log("SESSION ID: ", this.sessionId)
+            // localStorage.setItem('prova', this.sessionId);
+        }, 1 * 1);
     },
     computed: {
         // Update total price
