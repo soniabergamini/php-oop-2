@@ -5,6 +5,7 @@ createApp({
         return {
             productFilter: 'All',
             showCart: false,
+            showLogin: false,
             cartNotif: false,
             cartIndex: undefined,
             sessionCart: [],
@@ -17,7 +18,19 @@ createApp({
     },
     // Call Leaving Method to destroy session when user close browser window
     created() {
-        window.addEventListener("beforeunload", this.leaving);
+        window.addEventListener("beforeunload", this.leaving)
+    },
+    watch: {
+        // Stop page scrolling if Login Form is visible
+        showLogin() {
+            if (this.showLogin) {
+                this.scrollToTop()
+                document.documentElement.style.overflow = 'hidden'
+                return;
+            } else {
+                document.documentElement.style.overflow = 'auto'
+            }
+        }
     },
     // Get Cart Data 
     mounted() {

@@ -7,7 +7,6 @@ $cart = file_get_contents("./cartdata.json");
 
 // Data Processing
 $cartData = json_decode($cart, true);
-$i = null; 
 if (!empty($_POST)) {
     if (isset($_POST['newItem'])) {
 
@@ -18,6 +17,7 @@ if (!empty($_POST)) {
                 $cartPresent = true;
                 $i = array_search($userCarts, $cartData);
                 array_push($cartData[$i]['cartItems'], $_POST['newItem']);
+                break;
             }
         };
         if(!$cartPresent) {
@@ -37,6 +37,7 @@ if (!empty($_POST)) {
                 $itemIndex = $_POST['deleteItem'];
                 $i = array_search($userCarts, $cartData);
                 array_splice($cartData[$i]['cartItems'], $itemIndex, 1);
+                break;
             }
         }
     } else if (isset($_POST['emptyCart'])) {
@@ -46,6 +47,7 @@ if (!empty($_POST)) {
             if ($userCarts['id'] == $_SESSION['id']) {
                 $i = array_search($userCarts, $cartData);
                 $cartData[$i]['cartItems'] = [];
+                break;
             }
         }
         if($_POST['emptyCart'] == 'destroy') {

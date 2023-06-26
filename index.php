@@ -8,13 +8,19 @@ require_once __DIR__ . '/models/toy.php';
 require_once __DIR__ . '/models/kennel.php';
 
 // Session
-session_start();
-$_SESSION['id'] = rand(1, 5000);
+if(!isset($_SESSION['id'])) {
+    $_SESSION['id'] = rand(1, 5000);
+    var_dump($_SESSION['id']);
+    session_start();
+}
+if(!isset($_SESSION['login'])) {
+    $_SESSION['login'] = false;
+}
 
 // Session Debug
 // $_SESSION['id'] = 1;
-$printID = json_encode($_SESSION['id']);
-echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
+// $printID = json_encode($_SESSION['id']);
+// echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
 // echo '<pre>', print_r("Session ID: " . $_SESSION['id'], true), '</pre>';
 ?>
 
@@ -42,6 +48,9 @@ echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
     <!-- Vue JS App -->
     <div id="app">
 
+        <!-- Page Overlay -->
+        <div v-if="showLogin" class="w-full h-full z-20 bg-[rgba(0,0,0,.6)] fixed"></div>
+
         <!-- Page title -->
         <header class="py-7">
             <h1 class="text-center font-bold text-5xl text-[#F1641D]">🐾 SHOP 🐾</h1>
@@ -50,22 +59,50 @@ echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
         <!-- Page Fixed Buttons -->
         <section>
 
+            <!-- Login / Signup -->
+                <button v-show="<?php echo !$_SESSION['login'] ?>" @click="showLogin = !showLogin" class="fixed right-5 top-20 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded" :class="showLogin === true ? 'animate-pulse' : null"><i class="fa-solid fa-user fa-xl"></i></button>
+
             <!-- Cart -->
-            <button @click="showCart = !showCart" class="fixed right-5 top-20 z-40 hover:bg-[#ef8f5f] border-2 border-[#F1641D] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded">
+            <button @click="showCart = !showCart" class="fixed right-5 top-40 z-40 hover:bg-[#ef8f5f] border-2 border-[#F1641D] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded">
                 <i class="fa-solid fa-cart-shopping fa-xl"></i>
                 <span v-show="cartNotif" class="bg-red-600 absolute z-50 top-[-10px] right-[-8px] rounded-full h-6 w-6 text-white">{{ getItemsNum() }}</span>
             </button>
 
             <!-- Filter Product for 'Cat' -->
-            <button @click="productFilter = 'Cat'" class="fixed right-5 top-40 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-cat fa-xl"></i></button>
+            <button @click="productFilter = 'Cat'" class="fixed right-5 top-60 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-cat fa-xl"></i></button>
 
             <!-- Filter Product for 'Dog' -->
-            <button @click="productFilter = 'Dog'" class="fixed right-5 top-60 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-dog fa-xl"></i></button>
+            <button @click="productFilter = 'Dog'" class="fixed right-5 top-80 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-dog fa-xl"></i></button>
 
             <!-- Back (Show All Product) -->
-            <button v-show="productFilter != 'All'" @click="productFilter = 'All'" class="fixed right-5 top-80 z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-rotate-left fa-xl"></i></button>
+            <button v-show="productFilter != 'All'" @click="productFilter = 'All'" class="fixed right-5 top-[25rem] z-40 hover:bg-[#ef8f5f] bg-[#F1641D] h-[70px] w-[70px] text-white font-bold rounded"><i class="fa-solid fa-rotate-left fa-xl"></i></button>
 
         </section>
+
+        <!-- Login / Signup PopUp -->
+            <section v-show="showLogin" class="text-center border rounded absolute w-[55%] top-[50%] left-[50%] p-5 translate-x-[-50%] translate-y-[-50%] z-50 bg-white">
+                <h3 class="font-bold text-2xl text-[#5C737C]">LOGIN OR SIGNUP</h3>
+                <p class="my-3 text-sm">Insert your data to <strong>login</strong> or <strong>create new account</strong>. If this is your first time, a new user will be created for you!</p>
+
+                <!-- Login Form  -->
+                <form action="login.php" method="POST" class="flex flex-col items-center justify-start">
+                    <div class="flex justify-center flex-wrap gap-3 w-full my-3">
+                        <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
+                        <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
+                    </div>
+                    <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> LOGIN</button>
+                </form>
+
+                <!-- Signup Form  -->
+                <!-- <form action="signup.php" method="POST" class="flex flex-col items-center justify-start">
+                    <div class="flex justify-center flex-wrap gap-3 w-full my-3">
+                        <input type="email" placeholder="email" name="email" id="email" class="border w-[35%] rounded px-2 py-1" required>
+                        <input type="password" placeholder="password" name="password" id="password" class="border w-[35%] rounded px-2 py-1" required>
+                    </div>
+                    <button type="submit" class="mt-3 rounded-full border-2 border-[#F1641D] px-4 py-0.5 bg-[#F1641D] hover:bg-[#ef7b40] hover:border-[#F1641D] text-white font-bold hover:bg-white hover:text-[#F1641D] tracking-wide"><i class="fa-solid fa-paw fa-sm mr-2"></i> SIGNUP</button>
+                </form> -->
+
+            </section>
 
         <!-- Main Contents -->
         <main>
@@ -79,7 +116,6 @@ echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
                         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
                         <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" />
                     </svg>
-                    <span class="sr-only">Loading...</span>
                 </div>
 
                 <!-- Purchase Confirmation Message -->
@@ -160,7 +196,7 @@ echo "<script> console.log('DEBUG => Session ID: ', $printID) </script>";
                     <div v-show="productFilter == 'All' || productFilter == '<?= ucfirst(strtolower($product->category->getCategoryName())) ?>'" class="shadow-xl shadow-neutral-300 rounded py-5 px-3 w-[calc(100%/2-1rem)] md:w-[calc(100%/3-1rem)] lg:w-[calc(100%/5-1rem)] text-sm relative flex flex-col gap-2">
 
                         <!-- Category Info -->
-                        <div class="absolute top-4 left-1 z-20 bg-slate-200 px-2 py-1 rounded">
+                        <div class="absolute top-4 left-1 z-10 bg-slate-200 px-2 py-1 rounded">
                             <div class="flex items-center gap-1">
                                 <figure>
                                     <img src=".<?= $product->category->getCategoryIcon() ?>" alt="<?= $product->category->getCategoryName() ?>-img" class="w-[30px] h-[30px] object-cover object-top rounded-full border">
